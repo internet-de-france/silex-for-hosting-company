@@ -1,0 +1,21 @@
+{
+	"name": "custom-provider",
+	"description": "A sample integration of Silex for a hosting company",
+	"logo": "https://user-images.githubusercontent.com/715377/45088401-2944d900-b109-11e8-8bae-54cf87724de9.png",
+	"repository":"https://github.com/lexoyo/custom-provider.git",
+	"keywords": [
+		"github",
+		"silex"
+	],
+	"buildpacks": [
+		{
+			"url": "heroku/jvm"
+		},
+		{
+			"url": "heroku/nodejs"
+		}
+
+	],
+	"env": {
+	}
+}
