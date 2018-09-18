@@ -17,5 +17,14 @@
 
 	],
 	"env": {
+    "SERVER_URL": {
+      "description": "The URL of your new Silex instance on heroku. E.g. 'https://app-name.herokuapp.com'"
+    },
+    "GITHUB_CLIENT_ID": {
+      "description": "Github app ID. <a href='https://github.com/settings/developers'>Create an app here</a> with the param 'Authorization callback URL' set to the URL of your new Silex instance on heroku + '/github/oauth_callback'. E.g. 'https://app-name.herokuapp.com/github/oauth_callback'"
+    },
+    "GITHUB_CLIENT_SECRET": {
+      "description": "Github app secret. <a href='https://github.com/settings/developers'>Create an app here</a> with the param 'Authorization callback URL' set to the URL of your new Silex instance on heroku + '/github/oauth_callback'. E.g. 'https://app-name.herokuapp.com/github/oauth_callback'"
+    }
 	}
 }
