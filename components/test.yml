@@ -3,6 +3,7 @@ name: Dropdown list (select tag)
 description: Let the user select an option among a list of options.
 doc: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
 category: Form Input
+faIconClass: fa-caret-square-o-down
 props:
 - name: selectedIndex
   type: number
