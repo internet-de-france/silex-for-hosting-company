@@ -6,6 +6,7 @@ const CustomProvider = require('./custom-provider');
 
 config.publisherOptions.skipProviderSelection = true;
 config.publisherOptions.enableGithubPages = false;
+config.ceOptions.enableFs = true;
 
 const silex = new SilexServer(config);
 //silex.unifile.use(new CustomService());

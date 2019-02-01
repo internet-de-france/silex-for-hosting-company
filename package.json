@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall": "npm run build",
+    "build": "cp components/* `node_modules`/silex/src/prodotype/components/ && cd `node_modules`/silex/ && npm run build:prodotype"
   },
   "engines": {
     "node": "8.10.x",
@@ -21,6 +23,7 @@
   },
   "homepage": "https://github.com/lexoyo/silex-for-hosting-company#readme",
   "dependencies": {
-    "silex": "github:lexoyo/Silex#publish_to_hosting"
+    "node_modules-path": "^2.0.2",
+    "silex": "github:silexlabs/Silex"
   }
 }

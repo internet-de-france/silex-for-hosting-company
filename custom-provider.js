@@ -44,7 +44,7 @@ module.exports = function(unifile) {
     }
     unifile.readdir(req.session.unifile, 'github', '/' + name)
       .then(result => {
-        // the hardcode folder exists
+        // the hardcoded folder exists
         sendResult();
       })
       .catch(err => {
