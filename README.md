@@ -19,12 +19,13 @@ Look at the components `.yml` and `.ejs` files. Create your own component by add
 
 ### Integrate Silex with your infrastructure
 
-Clone this repo
-nvm i
-npm run build
-npm start
-
+Clone this repo and then
+```
+$ nvm i
+$ npm run build
+$ npm start
+```
 Look at the custom hosting provider and how it is added to Silex. Create your own custom provider and test it on heroku.
 
-Finally there are unifile services which you can add, and then use them to provide hosting to your Silex users. If Silex sees only one unifile service and one hosting provider, the user will not see the other choices and the user experience will be like with proprietary website builders where hosting is provided only by the company.
+Also you can add unifile services, and then use them to provide hosting to your Silex users. If Silex sees only one unifile service and one hosting provider, the user will not see the other choices and the user experience will be like with proprietary website builders where hosting is provided only by the company.
 
