@@ -62,23 +62,29 @@ $ npm start
 
 ### Add custom components
 
+![customize silex add component](https://user-images.githubusercontent.com/715377/53307105-96386080-385a-11e9-8b81-3913a6a07d99.gif)
+
 Look at the components `.yml` and `.ejs` files. Create your own component by adding a pair of `.yml` and `.ejs` files. It will trigger a deploy to heroku.
 
 [Doc about the components](https://github.com/silexlabs/Prodotype/blob/master/README.md)
 
+
+
 ### Add custom templates
+
+
+![customize silex add template](https://user-images.githubusercontent.com/715377/53307106-96386080-385a-11e9-9c82-75b1bdd6ac1e.gif)
+
 
 Look at the templates of [the official repository of templates](https://github.com/silexlabs/silex-templates). They all have 1 folder per template with these files in it: `editable.html`, `index.html`, `screenshot.png`, `README.md` and all the files which are generated when publishing the template with Silex.
 
 ### Integrate Silex with your infrastructure
 
-Look at the custom hosting provider and how it is added to Silex:
+#### Provide a cloud storage
 
-```
-silex.publishRouter.addHostingProvider(new CustomProvider(silex.unifile))
-```
+![customize silex add service](https://user-images.githubusercontent.com/715377/53307104-96386080-385a-11e9-8e5a-492acbd641df.gif)
 
-Same thing for custom unifile service:
+You can let your users store their work (html and image files) on your server:
 
 ```
 silex.unifile.use(new CustomService({
@@ -105,4 +111,16 @@ This unifile service is defined in [`custom-service.js`](./custom-service.js) an
 Notes:
 * you can add unifile services, and then use them to provide hosting to your Silex users
 * if Silex sees only one unifile service and one hosting provider, the user will not see the other choices and the user experience will be like with proprietary website builders where hosting is provided only by the company.
+
+
+#### Provide hosting to your users
+
+![customize silex add hosting provider](https://user-images.githubusercontent.com/715377/53307103-96386080-385a-11e9-944d-846cbf950951.gif)
+
+Look at the custom hosting provider and how it is added to Silex:
+
+```
+silex.publishRouter.addHostingProvider(new CustomProvider(silex.unifile))
+```
+
 
