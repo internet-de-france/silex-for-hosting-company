@@ -7,13 +7,13 @@ const CustomService = require('./custom-service');
 
 // provide only our custom hosting to user when they want to publish
 config.publisherOptions.skipHostingSelection = true;
-config.publisherOptions.skipHostingSelection = true;
 config.publisherOptions.enableHostingUnifile = false;
 
 // prevent default option of SFTP
 // provide only our custom service to our users
 config.ceOptions.enableSftp = false;
 
+// create a silex instance
 const silex = new SilexServer(config);
 
 // custom unifile service

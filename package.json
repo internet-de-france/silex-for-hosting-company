@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "postinstall": "npm run build",
-    "build": "cp components/* `node_modules`/silex/src/prodotype/components/ && cd `node_modules`/silex/ && npm run build:prodotype"
+    "build": "npm run build:templates && npm run build:components",
+    "build:templates": "cp -r templates/* `node_modules`/silex-templates/",
+    "build:components": "cp components/* `node_modules`/silex/src/prodotype/components/ && cd `node_modules`/silex/ && npm run build:prodotype"
   },
   "engines": {
     "node": "8.10.x",
@@ -24,6 +26,6 @@
   "homepage": "https://github.com/lexoyo/silex-for-hosting-company#readme",
   "dependencies": {
     "node_modules-path": "^2.0.2",
-    "silex": "github:silexlabs/Silex"
+    "silex": "github:silexlabs/Silex#develop"
   }
 }

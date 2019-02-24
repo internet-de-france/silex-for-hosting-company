@@ -14,7 +14,7 @@ module.exports.prototype.getOptions = function(session) {
     pleaseCreateAVhost: 'create a new project.',
     vhostsUrl: '/hosting/custom-provider/vhost',
     buyDomainUrl: 'https://www.custom-provider.com/domains',
-    skipVhostSelection: false,
+    skipVhostSelection: true,
     skipFolderSelection: true,
     afterPublishMessage: 'Thx for using our service.<br><br>',
   };

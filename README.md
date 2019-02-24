@@ -1,6 +1,26 @@
 ## An example of use of Silex website builder
 
-Note: in Silex, these are some useful terms to know
+### About this repository
+
+This repository shows you how [Silex open source website builder](https://www.silex.me) can be customized to your needs. This will be useful to you if you sell Silex websites, or if you sell hosting.
+
+This demo shows how to
+
+* host a custom instance of Silex, with Silex project imported as an npm dependency (good for Silex updates)
+* add components to the "+" menu
+* add templates to the list of templates on the dashboard
+* integrate Silex to you infrastructure and offer a user experience close to the "usual" website builder, where the user can load/save from your hosting and publish to your server
+
+The last point is important and it means that with this customized instance of Silex
+
+* you user will not be proposed cloud storage such as Dropbox or Github
+* all the files will be store on the server's file system, in the user's directory
+* your user will not be proposed to publish in a folder, the website will allways be published in the user's "Website/" folder
+* there is a custom login mechanism which you are supposed to customize for real life use, see bellow
+
+### Notes
+
+In Silex, these are some useful terms to know
 
 * unifile service: this means a "storage" displayed in the file explorer, where you can save or load your websites or images, e.g. "Dropbox"
 * hosting provider: this means an "option" to publish your website, which is displayed in the list when you publish your website, e.g. "Github Pages"
@@ -15,7 +35,11 @@ This is how you are supposed to customize Silex:
 
 2- In the `components/` you can add components
 
-### Test this 100% online
+3- in `templates/` you can add templates
+
+### Run this custom instance of Silex
+
+#### 100% online with heroku
 
 You can deploy Silex for free without leaving the browser thanks to heroku. Then you can customize Silex from the browser in Github, just for testing purpose.
 
@@ -24,9 +48,11 @@ Fork this repository
 Deploy on heroku
 [![Folow this link for 1 click deploy to heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-### Test this on your computer
+With this method you can test adding templates, components and changing unifile config without leaving the browser, without any local instal.
 
-Clone this repo and then
+#### Local installation
+
+Clone this repo with git and then run Silex
 
 ```
 $ nvm i
@@ -40,12 +66,16 @@ Look at the components `.yml` and `.ejs` files. Create your own component by add
 
 [Doc about the components](https://github.com/silexlabs/Prodotype/blob/master/README.md)
 
+### Add custom templates
+
+Look at the templates of [the official repository of templates](https://github.com/silexlabs/silex-templates). They all have 1 folder per template with these files in it: `editable.html`, `index.html`, `screenshot.png`, `README.md` and all the files which are generated when publishing the template with Silex.
+
 ### Integrate Silex with your infrastructure
 
 Look at the custom hosting provider and how it is added to Silex:
 
 ```
-silex.app.use(new CustomProvider(silex.unifile));
+silex.publishRouter.addHostingProvider(new CustomProvider(silex.unifile))
 ```
 
 Same thing for custom unifile service:
@@ -57,6 +87,22 @@ silex.unifile.use(new CustomService({
 }));
 ```
 
+This unifile service is defined in [`custom-service.js`](./custom-service.js) and contains a method where you can define your custom authentication mechanism:
+
+```
+  login(session, loginInfos) {
+    // TODO: insert here the authentication login
+    Object.assign(session, loginInfos);
+
+    // FIXME: this is just for the test
+    // create the user's dir
+    this.mkdir(session, '');
+
+    return Promise.resolve(session);
+	}
+```
+
 Notes:
-* you can add unifile services, and then use them to provide hosting to your Silex users.
+* you can add unifile services, and then use them to provide hosting to your Silex users
 * if Silex sees only one unifile service and one hosting provider, the user will not see the other choices and the user experience will be like with proprietary website builders where hosting is provided only by the company.
+
