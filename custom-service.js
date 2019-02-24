@@ -51,9 +51,10 @@ class UserDir extends FsConnector {
 
     // FIXME: this is just for the test
     // create the user's dir
-    this.mkdir(session, '');
-
-    return Promise.resolve(session);
+    return this.mkdir(session, '')
+    .then(() => this.mkdir(session, 'Website'))
+    .catch((e) => session)
+    // return Promise.resolve(session);
 	}
 
 	//Filesystem commands

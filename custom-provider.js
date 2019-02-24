@@ -49,7 +49,7 @@ module.exports.prototype.getVhostData = async function(session, vhostName) {
     };
   }
   catch(e) {
-    console.log('no domain', e);
+    console.log('no domain');
   }
   return null;
 };
