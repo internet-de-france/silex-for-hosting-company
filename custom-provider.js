@@ -1,66 +1,77 @@
-const express = require('express');
-
 module.exports = function(unifile) {
-  // create a router to return
-  const router = express.Router();
-  // add my options to the list of hosting providers
-  router.get('/hosting/', (req, res, next) => {
-//    req.session = req.session || {};
-//    req.session.unifile = req.session.unifile || {};
-    res.locals.providers = res.locals.providers || [];
-    const infos = unifile.getInfos(req.session.unifile, 'github');
-    const options = {
-      name: 'custom-provider',
-      displayName: 'Custom provider based on github',
-      isLoggedIn: infos.isLoggedIn,
-      username: infos.username,
-      authorizeUrl: '/ce/github/authorize',
-      dashboardUrl: 'https://www.custom-provider.com/projects',
-      pleaseCreateAVhost: 'create a new project.',
-      vhostsUrl: '/hosting/custom/vhost',
-      buyDomainUrl: 'https://www.custom-provider.com/domains',
-      skipVhostSelection: true,
-      afterPublishMessage: 'Thx for using our service.<br><br><strong>The deployment to a live website may take a few minutes, be patient!</strong>',
-    };
-    res.locals.providers.push(options);
-    next();
-  });
-  // add my callbacks to the router
-  router.get('/hosting/custom/vhost', (req, res, next) => {
-    // for the test, only one vhost which is a hardcoded repo in github
-    const name = 'custom-provider';
-    function sendResult() {
-      res.json([{
-        name: name,
-        skipDomainSelection: true, // no domain here to make it simple
-        publicationPath: {
-          name: 'gh-pages',
-          folder: name,
-          path: `${ name }/gh-pages`,
-          service: 'github',
-          url: `https://${ req.session.unifile.github.account.login }.github.io/${ name }/`,
-        }
-      }]);
-    }
-    unifile.readdir(req.session.unifile, 'github', '/' + name)
-      .then(result => {
-        // the hardcoded folder exists
-        sendResult();
-      })
-      .catch(err => {
-        // the hardcode folder does not exist
-        unifile.mkdir(req.session.unifile, 'github', '/' + name)
-          .then(result => {
-            sendResult();
-          })
-          .catch(err => {
-            // the hardcode folder does not exist
-            res.status(400).send({
-              message: `Before publishing you need to <a target="_blank" href="https://github.com/new">create a repository named ${ name }</a>.`,
-              err: err,
-            });
-          });
-      });
-  });
-  return router;
+  this.unifile = unifile;
 };
+
+module.exports.prototype.getOptions = function(session) {
+  const infos = this.unifile.getInfos(session, 'custom-service');
+  return {
+    name: 'custom-provider',
+    displayName: 'Custom provider based on custom-service',
+    isLoggedIn: infos.isLoggedIn,
+    username: infos.username,
+    authorizeUrl: '/ce/custom-service/authorize',
+    dashboardUrl: 'https://www.custom-provider.com/projects',
+    pleaseCreateAVhost: 'create a new project.',
+    vhostsUrl: '/hosting/custom-provider/vhost',
+    buyDomainUrl: 'https://www.custom-provider.com/domains',
+    skipVhostSelection: false,
+    skipFolderSelection: true,
+    afterPublishMessage: 'Thx for using our service.<br><br>',
+  };
+};
+
+const WEBSITE_FOLDER_NAME = 'Website';
+module.exports.prototype.getVhosts = async function(session) {
+  return [{
+    name: WEBSITE_FOLDER_NAME,
+    domainUrl: `/hosting/custom-provider/vhost/get`,
+    skipDomainSelection: false,
+    publicationPath: {
+      //absPath: `/ce/github/get/${ WEBSITE_FOLDER_NAME }/gh-pages`,
+      name: WEBSITE_FOLDER_NAME,
+      folder: WEBSITE_FOLDER_NAME,
+      path: `${ WEBSITE_FOLDER_NAME }/`,
+      service: 'custom-service',
+      url: `https://${ session.user }.your-domain.com/`,
+    }
+  }];
+};
+
+module.exports.prototype.getVhostData = async function(session, vhostName) {
+  console.log('getVhostData', session, vhostName);
+  try {
+    const domain = (await this.unifile.readFile(session, 'custom-service', `/${ WEBSITE_FOLDER_NAME }/CNAME`)).toString();
+    console.log('domain is ', domain);
+    return {
+      domain: domain,
+      url: `https://${ session.user }.your-domain.com/`,
+      // status: 'ok?',
+    };
+  }
+  catch(e) {
+    console.log('no domain', e);
+  }
+  return null;
+};
+
+module.exports.prototype.setVhostData = async function(session, vhostName, data) {
+  console.log('setVhostData', session, vhostName, data);
+  try {
+    await this.unifile.writeFile(session, 'custom-service', `/${ WEBSITE_FOLDER_NAME }/CNAME`, data.domain);
+    console.log('domain is ', domain);
+    return this.getVhostData(session, vhostName);
+  }
+  catch(e) {
+    console.log('no domain', e);
+  }
+  return null;
+};
+
+module.exports.prototype.finalizePublication = function(from, to, session, onStatus) {
+  return Promise.resolve();
+}
+
+module.exports.prototype.getDefaultPageFileName = function() {
+  return 'index.html';
+};
+

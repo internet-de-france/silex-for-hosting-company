@@ -6,7 +6,9 @@ const CustomProvider = require('./custom-provider');
 const CustomService = require('./custom-service');
 
 // provide only our custom hosting to user when they want to publish
-config.publisherOptions.skipProviderSelection = true;
+config.publisherOptions.skipHostingSelection = true;
+config.publisherOptions.skipHostingSelection = true;
+config.publisherOptions.enableHostingUnifile = false;
 
 // prevent default option of SFTP
 // provide only our custom service to our users
@@ -14,14 +16,14 @@ config.ceOptions.enableSftp = false;
 
 const silex = new SilexServer(config);
 
-// custom hosting provider
-silex.app.use(new CustomProvider(silex.unifile));
-
 // custom unifile service
 silex.unifile.use(new CustomService({
   redirectUri: config.ceOptions.rootUrl + '/custom-service/signin-custom',
   sandbox: '/tmp/'
 }));
+
+// custom hosting provider
+silex.publishRouter.addHostingProvider(new CustomProvider(silex.unifile))
 
 // define a form to get the user login and password
 silex.app.use('/ce/custom-service/signin-custom', (req, res) => {
