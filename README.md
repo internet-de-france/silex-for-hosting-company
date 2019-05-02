@@ -1,5 +1,8 @@
 ## An example of use of Silex website builder
 
+In Silex, these are some useful terms to know, please read this wiki page to know what we are talking about: [Silex vocabulary](https://github.com/silexlabs/Silex/wiki/Silex-vocabulary)
+
+
 ### About this repository
 
 This repository shows you how [Silex open source website builder](https://www.silex.me) can be customized to your needs. This will be useful to you if you sell Silex websites, or if you sell hosting.
@@ -18,13 +21,7 @@ The last point is important and it means that with this customized instance of S
 * your user will not be proposed to publish in a folder, the website will allways be published in the user's "Website/" folder
 * there is a custom login mechanism which you are supposed to customize for real life use, see bellow
 
-### Notes
-
-In Silex, these are some useful terms to know
-
-* unifile service: this means a "storage" displayed in the file explorer, where you can save or load your websites or images, e.g. "Dropbox"
-* hosting provider: this means an "option" to publish your website, which is displayed in the list when you publish your website, e.g. "Github Pages"
-* component: they are listed in the "+" menu, e.g. "interactive map" component
+### Customize Silex
 
 This is how you are supposed to customize Silex:
 
@@ -36,6 +33,7 @@ This is how you are supposed to customize Silex:
 2- In the `components/` you can add components
 
 3- in `templates/` you can add templates
+
 
 ### Run this custom instance of Silex
 
