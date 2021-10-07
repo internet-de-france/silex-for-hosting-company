@@ -1,7 +1,7 @@
 'use strict';
 
-const { SilexServer, DefaultConfig } = require('silex');
-const config = new DefaultConfig();
+const { SilexServer, Config } = require('silex-website-builder');
+const config = new Config();
 const CustomProvider = require('./custom-provider');
 const CustomService = require('./custom-service');
 

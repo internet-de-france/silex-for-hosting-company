@@ -5,35 +5,16 @@ In Silex, these are some useful terms to know, please read this wiki page to kno
 
 ### About this repository
 
-This repository shows you how [Silex open source website builder](https://www.silex.me) can be customized to your needs. This will be useful to you if you sell Silex websites, or if you sell hosting.
+This repository shows you how [Silex open source website builder](https://www.silex.me) can be customized for companies selling hosting or integrating Silex with a proprietary SaaS solution.
 
-This demo shows how to
+This demo shows how to integrate Silex to you infrastructure and offer a user experience close to the "usual" website builder, where the user can load/save from your hosting and publish to your server
 
-* host a custom instance of Silex, with Silex project imported as an npm dependency (good for Silex updates)
-* add components to the "+" menu
-* add templates to the list of templates on the dashboard
-* integrate Silex to you infrastructure and offer a user experience close to the "usual" website builder, where the user can load/save from your hosting and publish to your server
-
-The last point is important and it means that with this customized instance of Silex
+With this customized instance of Silex:
 
 * you user will not be proposed cloud storage such as Dropbox or Github
 * all the files will be store on the server's file system, in the user's directory
 * your user will not be proposed to publish in a folder, the website will allways be published in the user's "Website/" folder
 * there is a custom login mechanism which you are supposed to customize for real life use, see bellow
-
-### Customize Silex
-
-This is how you are supposed to customize Silex:
-
-1- In `index.js` you can
-
-* change the config (default hosting providers and unifile services)
-* add custom hosting providers and unifile services
-
-2- In the `components/` you can add components
-
-3- in `templates/` you can add templates
-
 
 ### Run this custom instance of Silex
 
@@ -58,23 +39,13 @@ $ npm run build
 $ npm start
 ```
 
-### Add custom components
+### Add custom components and custom templates
 
-![customize silex add component](https://user-images.githubusercontent.com/715377/53307105-96386080-385a-11e9-8b81-3913a6a07d99.gif)
+This will probably be useful to you if you want to customize Silex:
 
-Look at the components `.yml` and `.ejs` files. Create your own component by adding a pair of `.yml` and `.ejs` files. It will trigger a deploy to heroku.
-
-[Doc about the components](https://github.com/silexlabs/Prodotype/blob/master/README.md)
-
-
-
-### Add custom templates
-
-
-![customize silex add template](https://user-images.githubusercontent.com/715377/53307106-96386080-385a-11e9-9c82-75b1bdd6ac1e.gif)
-
-
-Look at the templates of [the official repository of templates](https://github.com/silexlabs/silex-templates). They all have 1 folder per template with these files in it: `editable.html`, `index.html`, `screenshot.png`, `README.md` and all the files which are generated when publishing the template with Silex.
+* [customize silex templates on the dashboard, see this project](https://github.com/silexlabs/custom-silex-templates)
+* [customize silex components in the + menu, see this project](https://github.com/silexlabs/custom-silex-components)
+* [Single site mode](https://github.com/silexlabs/custom-silex-components)
 
 ### Integrate Silex with your infrastructure
 
